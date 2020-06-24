@@ -1,0 +1,89 @@
+<div class="container">       
+    <mat-card> 
+      <mat-toolbar color="accent"> 
+        <div align="center" style="color:white;text-align: right;"> 
+         Musicalog
+        </div>   
+      </mat-toolbar> 
+    <br><br> 
+      <mat-card-content> 
+        <form [formGroup]="albumForm"(ngSubmit)="onFormSubmit()"> 
+                <table> 
+                  <tr> 
+                    <td class="tbl1"> 
+                      <mat-form-field class="demo-full-width"> 
+                        <input formControlName="AlbumName" matTooltip="Informe o Nome do Album" matInput placeholder="AlbumName"> 
+                      </mat-form-field> 
+                      <mat-error> 
+                        <span *ngIf="!albumForm.get('AlbumName').value && albumForm.get('AlbumName').touched"></span> 
+                      </mat-error> 
+                    </td> 
+                    <td class="tbl1"> 
+                      <mat-form-field class="demo-full-width"> 
+                        <input formControlName="ArtistName" matTooltip="informe o Nome do Artista" matInput placeholder="ArtistName"> 
+                      </mat-form-field> 
+                      <mat-error> 
+                        <span *ngIf="!albumForm.get('ArtistName').value && albumForm.get('ArtistName').touched"></span> 
+                      </mat-error> 
+                    </td> 
+                  </tr> 
+                  <tr> 
+                    <td class="tbl1"> 
+                        <mat-form-field class="demo-full-width"> 
+                       <input formControlName="Type" matTooltip="Informe o Type" matInput placeholder="Type"> 
+                      </mat-form-field> 
+                      <br><br> 
+                      <mat-error> 
+                        <span *ngIf="!albumForm.get('Type').value && albumForm.get('Type').touched"></span> 
+                      </mat-error> 
+                    </td> 
+                    <td class="tbl1"> 
+                      <mat-form-field class="demo-full-width"> 
+                        <input matTooltip="Informe o Stock" formControlName="Stock" matInput placeholder="Stock"> 
+                      </mat-form-field> 
+                      <mat-error> 
+                        <span *ngIf="!albumForm.get('Stock').value && albumForm.get('Stock').touched"></span> 
+                      </mat-error> 
+                    </td>                     
+                  </tr> 
+                  <tr> 
+                    <td></td> 
+                    <td  class="content-center"> 
+                      <button type="submit" mat-raised-button color="accent"matTooltip="Clique em Submeter para enviar"[disabled]="!albumForm.valid">Submeter</button>     
+                      <button type="reset" mat-raised-button color="accent"matTooltip="Clique em Resetar para limpar" (click)="resetForm()">Resetar</button> 
+                    </td> 
+                    <td> 
+                      <p *ngIf="dataSaved" style="color:rgb(0, 128, 0);font-size:20px;font-weight:bold" Class="success" align="left"> 
+                        {{message}} 
+                      </p> 
+                    </td> 
+                  </tr> 
+                </table> 
+    <br><br> 
+          <table class="table" > 
+              <tr ngclass="btn-primary"> 
+                <th class="tbl2">AlbumName</th> 
+                <th class="tbl2">ArtistName</th> 
+                <th class="tbl2">Type</th> 
+                <th class="tbl2">Stock</th> 
+                <th class="tbl2"></th> 
+                <th class="tbl2"></th> 
+              </tr> 
+              <tr *ngFor="let album of allAlbum | async"> 
+                <td class="tbl2">{{album.AlbumName}}</td> 
+                <td class="tbl2">{{album.ArtistName}}</td> 
+                <td class="tbl2">{{album.Type}}</td> 
+                <td class="tbl2">{{album.Stock}}</td> 
+                <td class="tbl2"> 
+                  <button type="button" class="btn btn-info"matTooltip="Clique para Editar"(click)="loadAlbumToEdit(album.AlbumID)">Edita</button> 
+                </td> 
+                <td class="tbl2"> 
+                  <button type="button" class="btn btn-danger"matTooltip="Clique para Deletar"(click)="deleteAlbum(album.AlbumID)">Deleta</button> 
+                </td> 
+              </tr>    
+  
+            </table> 
+        </form> 
+      </mat-card-content> 
+    </mat-card> 
+    </div>
